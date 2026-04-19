@@ -1,13 +1,11 @@
-Clica em "Add file" → "Create new file", chama de server.js e cola isso:
-javascriptconst express = require('express');
-const fetch = require('node-fetch');
-const cors = require('cors');
+import express from 'express';
+import fetch from 'node-fetch';
+import cors from 'cors';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Busca clips no Pexels
 app.get('/pexels/search', async (req, res) => {
   const { query, key } = req.query;
   try {
@@ -34,7 +32,6 @@ app.get('/pexels/search', async (req, res) => {
   }
 });
 
-// Health check
 app.get('/', (req, res) => res.send('DocMaker server rodando'));
 
 const PORT = process.env.PORT || 3000;
