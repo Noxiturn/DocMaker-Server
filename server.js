@@ -7,7 +7,13 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/pexels/search', async (req, res) => {
-  const { query, key } = req.query;
+  const { query } = req.query;
+  const key = process.env.PEXELS_KEY;
+
+  if (!key) {
+    return res.status(500).json({ error: 'Chave do Pexels não configurada no servidor' });
+  }
+
   try {
     const response = await fetch(
       `https://api.pexels.com/videos/search?query=${encodeURIComponent(query)}&per_page=1&orientation=landscape`,
